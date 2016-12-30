@@ -1,0 +1,21 @@
+
+menu "C8320 CP DRIVER BOARD SUPPORT (INCLUDE BASEBAND LODDER)"
+
+config C8320_MODEM
+        bool "c8320 cp driver support"
+        default y
+        help
+          Say Y here to enable IPC HSIC.
+
+config C8320_BOOT
+        bool "c8320 baseband loader usb driver support"
+        default y
+        help
+          USB LOAD BASEBAND for CYIT
+
+#config C8320_OLD_HSIC_MODED
+#        bool "c8320 old driver gpio control support"
+#	depends on C8320_HSIC_OLD
+#        default y
+endmenu
+

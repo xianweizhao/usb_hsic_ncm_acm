@@ -1,0 +1,117 @@
+#
+# C8320 ipc configuration
+#
+
+
+
+menuconfig C8320_IPC
+	default n
+	bool "C6320<-->C8320 IPC Driver support"
+	---help---
+	enable AP/CP communication function
+
+
+
+if C8320_IPC
+
+source "drivers/ipc_c8320/c8320_modem/Kconfig"
+
+choice 
+	prompt "modem ipc driver version"
+	default C8320_HSIC_OLD
+
+
+config C8320_HSIC_OLD
+	bool "c8320 old ipc drvier no power manager"
+	help
+          if we use old acm driver need add gpio contorl sleep mode(not carry out) or (switch mode  boot normal crash)
+          but in future we will use new acm ncm driver, so here default is none
+
+config C8320_HSIC_NEW
+	bool "c8320 new ipc driver and support power manager"
+	select SEC_MODEM_C8320
+	help
+          if we use new acm ncm driver instead of old driver and support sleep modem
+endchoice
+
+if C8320_HSIC_OLD
+
+menu "ACM2SMD API support"
+
+config ACM2SMD_API
+	bool "IPC ACM2SMD API Driver support"
+	default y
+	help
+	  Say Y here to enable IPC HSIC.
+
+config ACM2SMD_API_TEST
+	bool "IPC ACM2SMD API TEST Driver support"
+	default n
+	help
+	  Say Y here to enable IPC ACM2SMD API TEST Driver .
+
+endmenu
+
+
+
+menu "HSIC IPC channels driver support"
+
+config HSIC_IPC_AT
+	bool "IPC at channel Driver support"
+	default n
+	help
+	  Say Y here to enable at channel.
+
+config HSIC_IPC_PS
+	bool "IPC ps channel driver support"
+	default n
+	help
+	  Say Y here to enable ps channel.
+
+config HSIC_IPC_PS_TEST
+	bool "IPC ps channel test driver support"
+	default n
+	help
+	  Say Y here to enable ps channel test.
+
+config HSIC_IPC_CS
+	bool "IPC cs channel driver support"
+	default n
+	help
+	  Say Y here to enable cs channel.
+
+config HSIC_IPC_NVM
+	bool "IPC nvm channel driver support"
+	default n
+	help
+	  Say Y here to enable nvm channel.
+
+config HSIC_IPC_MODEM_LOG
+	bool "IPC arm/dsp log channel driver support"
+	default n
+	help
+	  Say Y here to enable  arm/dsp log channel.
+
+config HSIC_IPC_VM
+	bool "IPC vm channel driver support"
+	default n
+	help
+	  Say Y here to enable vm channel.
+
+config HSIC_IPC_VT
+	bool "IPC vt channel driver support"
+	default n
+	help
+	  Say Y here to enable vt channel.
+
+endmenu
+
+endif
+
+if C8320_HSIC_NEW
+source "drivers/ipc_c8320/modem_v2/Kconfig"
+endif
+
+
+endif # HSIC_IPC
+

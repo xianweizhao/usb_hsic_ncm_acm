@@ -1,0 +1,21 @@
+
+config LTE_MODEM_C8320
+        bool "LTE C8320 MODEM"
+        default n
+
+config LINK_DEVICE_HSIC
+	bool "modem driver link device HSIC"
+	default n
+	
+config LINK_DEVICE_CLASS_CDC_NCM
+	bool "USB/HSIC subclass CDC-NCM functions"
+	default n
+
+config LINK_ETHERNET
+	bool "SIPC USB raw ehternet patcket"
+	select MII
+	default n
+
+config LINK_DEVICE_POWER_MANGER
+	bool "new ipc driver power mananger support"
+	default n
